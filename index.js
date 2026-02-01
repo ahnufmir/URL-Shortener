@@ -12,3 +12,4 @@ app.use(express.json());
 app.use("/", urlRoute)
 
 app.listen(PORT, ()=>{console.log("Server is listening")});
+
