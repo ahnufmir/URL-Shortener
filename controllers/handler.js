@@ -6,12 +6,22 @@ async function handlerPostURL(req, res) {
   const body = req.body;
   if (!body.url) return res.status(400).json({ msg: "No url" });
   console.log("url : ", url);
+  const check = await URL.findOne({redirectURL : body.url});
+  if(check){
+    console.log("Duplicate Found");
+    return res.render('home', {
+      foundId : check.shortURL
+    });
+  }
   const result = await URL.create({
     shortURL: url,
     redirectURL: body.url,
     visitedHistory: [],
   });
-  return res.status(201).json({ msg: `Your url : http://localhost:8000/${url}` });
+  return res.render('home', {
+    id : url
+  })
+  //return res.status(201).json({ msg: `Your url : http://localhost:8000/${url}` });
 }
 
 async function handleGetURL(req, res) {
@@ -31,7 +41,15 @@ async function handleGetURL(req, res) {
   return res.redirect(result.redirectURL);
 }
 
+async function handleGetURLForSecond(req,res) {
+  const allURLs = await URL.find({});
+  return res.render('home', {
+    url : allURLs
+  })
+}
+
 module.exports = {
   handlerPostURL,
-  handleGetURL
+  handleGetURL,
+  handleGetURLForSecond
 };

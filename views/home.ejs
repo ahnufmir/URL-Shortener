@@ -1,0 +1,27 @@
+<html lang="en">
+  <head>
+    <style>
+        body  {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>URL SHORTNER</h1>
+    <br/>
+    <% if (locals.id) { %>
+     <p>URL generated : <a href="http://localhost:8000/<%=id%>">http://localhost:8000/<%=id%></a> </p>
+    <% } %>
+    <% if (locals.foundId) { %>
+       <p>URL generated : <a href="http://localhost:8000/<%=foundId%>">http://localhost:8000/<%=foundId%></a> </p>
+    <% } %>
+    <form action="/" method="POST">
+    <p>Enter your Original URL</p>
+    <input placeholder="Enter your URL" type="text" name="url" />
+    <button type="submit" placeholder="submit">Generate</button>
+    </form>
+  </body>
+</html>
