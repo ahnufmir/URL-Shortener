@@ -11,7 +11,7 @@ async function handlerPostURL(req, res) {
     redirectURL: body.url,
     visitedHistory: [],
   });
-  return res.status(201).json({ msg: "URl created" });
+  return res.status(201).json({ msg: `Your url : http://localhost:8000/${url}` });
 }
 
 async function handleGetURL(req, res) {
@@ -23,7 +23,7 @@ async function handleGetURL(req, res) {
     {
       $push: {
         visitedHistory: {
-            timestamp : Date.now()
+            timestamp : new Date()
         },
       },
     },
