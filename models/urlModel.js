@@ -11,7 +11,11 @@ const schema = new mongoose.Schema({
         required : true,
         unique: true
     },
-    visitedHistory : [{timestamp : {type : String}}]
+    visitedHistory : [{timestamp : {type : String}}],
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref : 'users',
+    },  
 }, {timestamps : true});
 
 const URL = new mongoose.model("url", schema);

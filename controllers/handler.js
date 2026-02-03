@@ -17,6 +17,7 @@ async function handlerPostURL(req, res) {
     shortURL: url,
     redirectURL: body.url,
     visitedHistory: [],
+    createdBy : req.user._id
   });
   return res.render('home', {
     id : url
@@ -42,9 +43,10 @@ async function handleGetURL(req, res) {
 }
 
 async function handleGetURLForSecond(req,res) {
-  const allURLs = await URL.find({});
+  if(!req.user) return res.redirect('/url/login')
+  const allURLs = await URL.find({createdBy : req.user._id});
   return res.render('home', {
-    url : allURLs
+    urls : allURLs
   })
 }
 
