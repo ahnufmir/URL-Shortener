@@ -1,7 +1,10 @@
 const express = require("express");
 const {connectToMongoDB} = require("./config/connection")
+
 const urlRoute = require("./routes/url");
 const secondUrlRoute = require("./routes/secondurl");
+const userUrl = require("./routes/user")
+
 const cors = require("cors");
 const path = require('path')
 
@@ -17,9 +20,10 @@ app.set("views", path.resolve("./views"));
 app.use(cors({
     origin : "http://127.0.0.1:5500"
 }))
-app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(express.json());
 app.use("/url", secondUrlRoute);
+app.use("/user", userUrl);
 app.use("/", urlRoute)
 
 app.listen(PORT, ()=>{console.log("Server is listening")});

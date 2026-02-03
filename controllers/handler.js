@@ -2,7 +2,7 @@ const URL = require("../models/urlModel");
 const shortID = require("shortid");
 
 async function handlerPostURL(req, res) {
-  const url = shortID(8);
+  const url = shortID(4);
   const body = req.body;
   if (!body.url) return res.status(400).json({ msg: "No url" });
   console.log("url : ", url);
