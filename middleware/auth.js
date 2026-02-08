@@ -14,7 +14,7 @@ async function checkAuth(req,res,next) {
     const userCookie = req.cookies.token;
 
     const user = getUser(userCookie);
-
+    //if(!user) return null;
     req.user = user;
     next();
 }

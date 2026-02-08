@@ -39,6 +39,7 @@ async function handleGetURL(req, res) {
       },
     },
   );
+  if(result === null) return res.status(404).json({msg : "No data found"});
   return res.redirect(result.redirectURL);
 }
 
