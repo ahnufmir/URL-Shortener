@@ -1,13 +1,18 @@
-const { get } = require("mongoose");
+const jwt = require("jsonwebtoken");
+const secret = "ahnuf005"
 
-const sessionIdtoUserMap = new Map();
 
-function setUser(id, user){
-    sessionIdtoUserMap.set(id,user);
+function setUser(user){
+    const payload = {
+        _id : user._id,
+        email : user.email
+    }
+    return jwt.sign(payload, secret);
 }
 
 function getUser(id){
-    return sessionIdtoUserMap.get(id);
+    if(!id) return null;
+    return jwt.verify(id, secret);
 }
 
 module.exports = {
