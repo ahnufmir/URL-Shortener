@@ -4,13 +4,21 @@ const { setUser } = require ('../service/auth')
 const mongoose = require('mongoose');
 
 async function handleUserSignUp(req,res){
-    const {name, email, password} = req.body;
+    let {name, email, password, role, adminPass} = req.body;
+    if(adminPass === 1234){
+        role = "Admin";
+    }
+    else
+    {
+        role = "Normal";
+    }
     const newID = new mongoose.Types.ObjectId();
     await userUrl.create({
         _id : newID,
         name : name,
         email : email,
         password : password,
+        role : role,
         createdBy : newID,
     })
    return res.redirect('/url/login');

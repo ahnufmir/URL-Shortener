@@ -23,7 +23,7 @@ function checkAuthentication(req, res, next) {
 function restrictTo(roles) {
     return function(req,res,next){
         if(!req.user) return res.redirect("/url/login");
-        if(!roles.includes(req.user.role)) return res.end("Unauhthorized");
+        if(!roles.includes(req.user.role)) return res.status(401).redirect("/url");
         return next();
     }
 }
