@@ -8,7 +8,7 @@ const userUrl = require("./routes/user")
 const cors = require("cors");
 const path = require('path')
 const cookieParser = require('cookie-parser');
-const {restrictToLoggedinUsers, checkAuth} = require("./middleware/auth");
+const {checkAuthentication, restrictTo} = require("./middleware/auth");
 
 const app = express();
 const PORT = 8000;
@@ -21,10 +21,11 @@ app.set("views", path.resolve("./views"));
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 app.use(cookieParser());
+app.use(checkAuthentication);
 
-app.use("/url", checkAuth, secondUrlRoute);
+app.use("/url", secondUrlRoute);
 app.use("/user", userUrl);
-app.use("/", restrictToLoggedinUsers, urlRoute)
+app.use("/", restrictTo(["Normal"]), urlRoute)
 
 app.listen(PORT, ()=>{console.log("Server is listening")});
 

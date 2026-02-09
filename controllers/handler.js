@@ -44,8 +44,13 @@ async function handleGetURL(req, res) {
 }
 
 async function handleGetURLForSecond(req,res) {
-  if(!req.user) return res.redirect('/url/login');
   const allURLs = await URL.find({createdBy : req.user._id});
+  return res.render('home', {
+    urls : allURLs
+  })
+}
+async function handleGetAllUrls(req,res) {
+  const allURLs = await URL.find({});
   return res.render('home', {
     urls : allURLs
   })
@@ -54,5 +59,6 @@ async function handleGetURLForSecond(req,res) {
 module.exports = {
   handlerPostURL,
   handleGetURL,
-  handleGetURLForSecond
+  handleGetURLForSecond,
+  handleGetAllUrls
 };
